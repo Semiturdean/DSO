@@ -1,7 +1,9 @@
 package com.intproject.DSOtool.service;
 
+
 import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.repositories.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import com.intproject.DSOtool.service.exceptions.UserExceptions;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +21,15 @@ public class UserService {
 
     public User createNewUserAccount(User userDto){
 
+        //temporary until the configuration class works properly, then it should auto-generate the encoder
+       String generatedSecuredPasswordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12));
+
         return userRepository.save(new User(
                 userDto.getUsername(),
                 userDto.getEmailadress(),
                 userDto.getFirstname(),
                 userDto.getLastname(),
-                userDto.getPassword()));
+                generatedSecuredPasswordHash));
     }
 
     public Optional<User> findUserById(Long id) {
@@ -45,10 +50,8 @@ public class UserService {
     public User findUserByUsername(String username){
         return userRepository.findByUsername(username).get();
     }
+    
     private void validateUser(User user) {
-        if (user.getFirstname() == null || user.getLastname() == null || user.getUsername() == null) {
-            throw new UserExceptions("All required values for the user has not been assigned");
-        }
         if (user.getUsername().length() < 10) {
             throw new UserExceptions("Username cannot be shorter than 10 characters");
         }

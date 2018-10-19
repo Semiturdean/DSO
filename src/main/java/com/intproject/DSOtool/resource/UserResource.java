@@ -2,6 +2,7 @@ package com.intproject.DSOtool.resource;
 
 import com.intproject.DSOtool.data.CustomUserDetailsImpl;
 import com.intproject.DSOtool.data.User;
+import com.intproject.DSOtool.service.CustomUserDetailService;
 import com.intproject.DSOtool.service.UserService;
 import org.springframework.stereotype.Component;
 
@@ -22,10 +23,12 @@ public class UserResource {
     private UriInfo uriInfo;
 
     private final UserService service;
+    private final CustomUserDetailService customUserDetailService;
 
 
-    public UserResource(UserService service) {
+    public UserResource(UserService service, CustomUserDetailService customUserDetailService) {
         this.service = service;
+        this.customUserDetailService = customUserDetailService;
     }
 
     @POST
