@@ -1,9 +1,7 @@
 package com.intproject.DSOtool.service;
 
-import com.intproject.DSOtool.data.CustomUserDetailsImpl;
 import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.repositories.UserRepository;
-// import org.springframework.security.crypto.bcrypt.BCrypt;
 import com.intproject.DSOtool.service.exceptions.UserExceptions;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +19,6 @@ public class UserService {
 
     public User createNewUserAccount(User userDto){
 
-       // String generatedSecuredPasswordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12));
         return userRepository.save(new User(
                 userDto.getUsername(),
                 userDto.getEmailadress(),
