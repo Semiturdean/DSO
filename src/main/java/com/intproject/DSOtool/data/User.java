@@ -1,8 +1,11 @@
 package com.intproject.DSOtool.data;
 
 
+import com.intproject.DSOtool.data.enums.RoleEnum;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Enumeration;
 import java.util.Set;
 
 @Entity
@@ -36,10 +39,6 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user"))
     private Set<Role> roles;
 
-    /*@Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
-*/
     public User( String username,
                  String emailadress,
                  String firstname,

@@ -1,5 +1,7 @@
 package com.intproject.DSOtool.data;
 
+import com.intproject.DSOtool.data.enums.RoleEnum;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,10 +13,19 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String role;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
 
-    public Role(String role) {
+    public RoleEnum getRole() {
+        return role;
+    }
+
+    public void setRole(RoleEnum role) {
+        this.role = role;
+    }
+
+    public Role(RoleEnum role) {
         this.role = role;
     }
 
@@ -27,13 +38,5 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }
