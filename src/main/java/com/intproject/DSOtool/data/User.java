@@ -1,5 +1,6 @@
 package com.intproject.DSOtool.data;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -35,6 +36,10 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user"))
     private Set<Role> roles;
 
+    /*@Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+*/
     public User( String username,
                  String emailadress,
                  String firstname,
