@@ -27,7 +27,8 @@ public class UserServiceTest {
                 "HejDå@gmail.com",
                 "Hej",
                 "password",
-                "password");
+                "password",
+                2L);
     }
 
     @Test

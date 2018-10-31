@@ -35,20 +35,26 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @NotNull
+    @Column
+    private Long role_id;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user"))
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> roles;
 
     public User( String username,
                  String emailadress,
                  String firstname,
                  String lastname,
-                 String password) {
+                 String password,
+                 Long role_id) {
         this.username = username;
         this.emailadress = emailadress;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
+        this.role_id = role_id;
 
     }
 
@@ -116,8 +122,15 @@ public class User {
     public Set<Role> getRoles() {
         return roles;
     }
-
     public void setRoles(Role role) {
         roles.add(role);
+    }
+
+    public Long getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(Long role_id) {
+        this.role_id = role_id;
     }
 }

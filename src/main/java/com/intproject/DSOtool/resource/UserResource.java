@@ -5,6 +5,7 @@ import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.service.CustomUserDetailService;
 import com.intproject.DSOtool.service.UserService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -13,7 +14,7 @@ import javax.ws.rs.core.UriInfo;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-@Component
+@Controller
 @Consumes(APPLICATION_JSON)
 @Produces(APPLICATION_JSON)
 @Path("users")

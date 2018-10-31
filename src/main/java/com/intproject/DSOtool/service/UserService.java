@@ -1,6 +1,7 @@
 package com.intproject.DSOtool.service;
 
 
+import com.intproject.DSOtool.data.CustomUserDetailsImpl;
 import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.repositories.RoleRepository;
 import com.intproject.DSOtool.repositories.UserRepository;
@@ -26,13 +27,15 @@ public class UserService {
 
         //temporary until the configuration class works properly, then it should auto-generate the encoder
        String generatedSecuredPasswordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12));
+       userDto.setRole_id(2L);
 
         return userRepository.save(new User(
                 userDto.getUsername(),
                 userDto.getEmailadress(),
                 userDto.getFirstname(),
                 userDto.getLastname(),
-                generatedSecuredPasswordHash));
+                generatedSecuredPasswordHash,
+                userDto.getRole_id()));
     }
 
     public Optional<User> findUserById(Long id) {
