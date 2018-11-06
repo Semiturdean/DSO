@@ -2,6 +2,7 @@ package com.intproject.DSOtool.service;
 
 import com.intproject.DSOtool.data.Role;
 import com.intproject.DSOtool.data.User;
+import com.intproject.DSOtool.data.enums.RoleEnum;
 import com.intproject.DSOtool.repositories.RoleRepository;
 import com.intproject.DSOtool.repositories.UserRepository;
 import com.intproject.DSOtool.service.exceptions.UserExceptions;
@@ -21,7 +22,11 @@ public class RoleService {
 
     public Role createNewRole(Role role){
 
-        return roleRepository.save(new Role(role.getRole()));
+        if(role.getRole().equalsIgnoreCase(String.valueOf(RoleEnum.ADMIN)) || role.getRole().equalsIgnoreCase(String.valueOf(RoleEnum.CONSULTANT))){
+            return roleRepository.save(new Role(role.getRole().toLowerCase()));
+        } else {
+            throw new UserExceptions(role.getRole() + " is not a valid role");
+        }
 
     }
 
