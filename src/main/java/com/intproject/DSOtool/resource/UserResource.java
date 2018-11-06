@@ -1,6 +1,6 @@
 package com.intproject.DSOtool.resource;
 
-import com.intproject.DSOtool.data.CustomUserDetailsImpl;
+
 import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.service.CustomUserDetailService;
 import com.intproject.DSOtool.service.UserService;
@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
 @Controller
 @Consumes(APPLICATION_JSON)

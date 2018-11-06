@@ -1,64 +1,58 @@
 package com.intproject.DSOtool.data;
 
 
-import com.intproject.DSOtool.data.enums.RoleEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Enumeration;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id", updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(nullable = false , unique = true)
+    @Column(name = "user_name" ,nullable = false , unique = true)
     private String username;
 
     @NotNull
-    @Column(nullable = false , unique = true)
+    @Column(name = "email_adress" ,nullable = false , unique = true)
     private String emailadress;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "first_name" ,nullable = false)
     private String firstname;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "last_name" ,nullable = false)
     private String lastname;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "password" ,nullable = false)
     private String password;
 
-    @NotNull
-    @Column
-    private Long role_id;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    private Set<Role> roles;
+    @ManyToOne
+    private Role role;
 
     public User( String username,
                  String emailadress,
                  String firstname,
                  String lastname,
-                 String password,
-                 Long role_id) {
+                 String password) {
         this.username = username;
         this.emailadress = emailadress;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
-        this.role_id = role_id;
 
     }
 
-    public User() {
+    protected User() {
     }
 
     public User(User user) {
@@ -66,7 +60,7 @@ public class User {
         this.username = user.getUsername();
         this.firstname = user.getFirstname();
         this.lastname = user.getLastname();
-        this.roles = user.getRoles();
+        //this.roles = user.getRoles();
         this.password = user.getPassword();
         this.id = user.getId();
     }
@@ -119,18 +113,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-    public void setRoles(Role role) {
-        roles.add(role);
+    public Role getRoles() {
+        return role;
     }
 
-    public Long getRole_id() {
-        return role_id;
-    }
-
-    public void setRole_id(Long role_id) {
-        this.role_id = role_id;
+    public void setRole(Role role) {
+       this.role = role;
     }
 }

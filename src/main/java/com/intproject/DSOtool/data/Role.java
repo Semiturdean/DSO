@@ -1,31 +1,35 @@
 package com.intproject.DSOtool.data;
 
-import com.intproject.DSOtool.data.enums.RoleEnum;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "role")
 public class Role {
 
     @Id
-    @Column
+    @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleEnum role;
+    @Column(name = "role")
+    private String role;
 
-    public RoleEnum getRole() {
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
+    private Collection<User> users = new ArrayList<User>();
+
+
+    public String getRole() {
         return role;
     }
 
-    public void setRole(RoleEnum role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public Role(RoleEnum role) {
+    public Role(String role) {
         this.role = role;
     }
 
@@ -38,5 +42,14 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(User user) {
+       users.add(user);
+       user.setRole(this);
     }
 }

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 public class Customer {
 
     @Id
+    @Column(name = "customer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

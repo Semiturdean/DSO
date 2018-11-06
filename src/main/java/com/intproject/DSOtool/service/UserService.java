@@ -1,8 +1,9 @@
 package com.intproject.DSOtool.service;
 
 
-import com.intproject.DSOtool.data.CustomUserDetailsImpl;
+import com.intproject.DSOtool.data.Role;
 import com.intproject.DSOtool.data.User;
+import com.intproject.DSOtool.data.enums.RoleEnum;
 import com.intproject.DSOtool.repositories.RoleRepository;
 import com.intproject.DSOtool.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -26,16 +27,15 @@ public class UserService {
     public User createNewUserAccount(User userDto){
 
         //temporary until the configuration class works properly, then it should auto-generate the encoder
+       validateUser(userDto);
        String generatedSecuredPasswordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12));
-       userDto.setRole_id(2L);
 
-        return userRepository.save(new User(
-                userDto.getUsername(),
-                userDto.getEmailadress(),
-                userDto.getFirstname(),
-                userDto.getLastname(),
-                generatedSecuredPasswordHash,
-                userDto.getRole_id()));
+           return userRepository.save(new User(
+                   userDto.getUsername(),
+                   userDto.getEmailadress(),
+                   userDto.getFirstname(),
+                   userDto.getLastname(),
+                   generatedSecuredPasswordHash));
     }
 
     public Optional<User> findUserById(Long id) {
