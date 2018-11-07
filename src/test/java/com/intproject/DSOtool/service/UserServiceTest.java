@@ -23,13 +23,11 @@ public class UserServiceTest {
     UserRepository userRepository;
 
     User user1;
-    Role role1;
-    Set<Role> roles;
+
 
     @Before
     public void setUp(){
-        role1 = new Role("CONSULTANT");
-        roles.add(role1);
+
         user1 = new User("Hejdåkkkkkk",
                 "HejDå@gmail.com",
                 "Hej",
@@ -42,6 +40,12 @@ public class UserServiceTest {
     public void createUser(){
         userService.createNewUserAccount(user1);
     }
+
+    @Test
+    public void findUserById() {userService.findUserById(1L).get();}
+
+    @Test
+    public void findUserByUsername() {userService.findUserByUsername(user1.getUsername());}
 
     @After
     public void setupAfter(){

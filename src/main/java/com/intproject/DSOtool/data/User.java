@@ -4,8 +4,6 @@ package com.intproject.DSOtool.data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Entity
 @Table(name = "user")
