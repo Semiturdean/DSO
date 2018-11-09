@@ -5,7 +5,6 @@ import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.service.CustomUserDetailService;
 import com.intproject.DSOtool.service.UserService;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -13,9 +12,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
-@Controller
+@Component
 @Consumes(APPLICATION_JSON)
 @Produces(APPLICATION_JSON)
 @Path("users")
@@ -38,14 +36,14 @@ public class UserResource {
         User createNewUserAccount = service.createNewUserAccount(user);
 
         return Response.status(Response.Status.CREATED).header("Location",
-        uriInfo.getAbsolutePathBuilder().path(createNewUserAccount.getId().toString())).build();
+                uriInfo.getAbsolutePathBuilder().path(createNewUserAccount.getId().toString())).build();
     }
 
     @DELETE
     @Path("{id}")
     public Response deleteUserById(@PathParam("id") Long id){
         if(service.findUserById(id).isPresent()) {
-           service.deleteUserById(id);
+            service.deleteUserById(id);
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

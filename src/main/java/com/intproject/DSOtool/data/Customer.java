@@ -2,34 +2,35 @@ package com.intproject.DSOtool.data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
-public class Customer {
+public class Customer implements Serializable {
 
     @Id
-    @Column(name = "customer_id")
+    @Column(name = "cid", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(nullable = false)
-    private String companyname;
+    @Column(name = "company_name", nullable = false)
+    private String companyName;
 
     @NotNull
-    @Column(nullable = false)
-    private String emailadress;
+    @Column(name = "email_address", nullable = false)
+    private String emailAddress;
 
-    @Column
-    private String phonenumber;
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "contact", nullable = false)
     private String contact;
 
-    public Customer( String companyname, String emailadress, String phonenumber, String contact) {
-        this.companyname = companyname;
-        this.emailadress = emailadress;
-        this.phonenumber = phonenumber;
+    public Customer(String companyName, String emailAddress, String phoneNumber, String contact) {
+        this.companyName = companyName;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
         this.contact = contact;
     }
 
@@ -40,28 +41,28 @@ public class Customer {
         return id;
     }
 
-    public String getCompanyname() {
-        return companyname;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompanyname(String companyname) {
-        this.companyname = companyname;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getEmailadress() {
-        return emailadress;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setEmailadress(String emailadress) {
-        this.emailadress = emailadress;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getContact() {

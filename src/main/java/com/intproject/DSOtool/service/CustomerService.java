@@ -17,9 +17,9 @@ public class CustomerService {
     public Customer createNewCustomer(Customer customer){
 
         return customerRepository.save(new Customer(
-                customer.getCompanyname(),
-                customer.getEmailadress(),
-                customer.getPhonenumber(),
+                customer.getCompanyName(),
+                customer.getEmailAddress(),
+                customer.getPhoneNumber(),
                 customer.getContact()));
     }
 }

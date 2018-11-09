@@ -1,6 +1,7 @@
 package com.intproject.DSOtool.service;
 
 
+import com.intproject.DSOtool.data.CustomUserDetailsImpl;
 import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
+        Optional<User> optionalUser = userRepository.findByUserName(username);
         optionalUser.orElseThrow(() -> new UsernameNotFoundException("Username was not found"));
 
-        return null; //optionalUser.map(CustomUserDetailsImpl::new).get();
+        return optionalUser.map(CustomUserDetailsImpl::new).get();
     }
 }

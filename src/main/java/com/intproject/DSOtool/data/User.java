@@ -4,61 +4,69 @@ package com.intproject.DSOtool.data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
 
     @Id
-    @Column(name = "user_id", updatable = false)
+    @Column(name = "uid", updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(name = "user_name" ,nullable = false , unique = true)
-    private String username;
+    @Column(name = "user_name", nullable = false , unique = true)
+    private String userName;
 
     @NotNull
-    @Column(name = "email_adress" ,nullable = false , unique = true)
-    private String emailadress;
+    @Column(name = "email_address", nullable = false , unique = true)
+    private String emailAddress;
 
     @NotNull
-    @Column(name = "first_name" ,nullable = false)
-    private String firstname;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
 
     @NotNull
-    @Column(name = "last_name" ,nullable = false)
-    private String lastname;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
     @NotNull
-    @Column(name = "password" ,nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToOne
-    private Role role;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "uid"), inverseJoinColumns= @JoinColumn(name = "role_id", referencedColumnName = "rid"))
+    private List<Role> roles;
 
-    public User( String username,
-                 String emailadress,
-                 String firstname,
-                 String lastname,
-                 String password) {
-        this.username = username;
-        this.emailadress = emailadress;
-        this.firstname = firstname;
-        this.lastname = lastname;
+    public User( String userName,
+                 String emailAddress,
+                 String firstName,
+                 String lastName,
+                 String password,
+                 List<Role> roles) {
+        this.userName = userName;
+        this.emailAddress = emailAddress;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
+        this.roles = roles;
 
     }
 
-    protected User() {
+    public User() {
     }
 
     public User(User user) {
-        this.emailadress = user.getEmailadress();
-        this.username = user.getUsername();
-        this.firstname = user.getFirstname();
-        this.lastname = user.getLastname();
-        //this.roles = user.getRoles();
+        this.emailAddress = user.getEmailAddress();
+        this.userName = user.getUserName();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.roles = user.getRoles();
         this.password = user.getPassword();
         this.id = user.getId();
     }
@@ -71,36 +79,36 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getEmailadress() {
-        return emailadress;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setEmailadress(String emailadress) {
-        this.emailadress = emailadress;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -111,11 +119,11 @@ public class User {
         this.password = password;
     }
 
-    public Role getRoles() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-       this.role = role;
+    public void setRoles(Role role) {
+        roles.add(role);
     }
 }

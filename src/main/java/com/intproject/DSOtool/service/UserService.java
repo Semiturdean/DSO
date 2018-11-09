@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import com.intproject.DSOtool.service.exceptions.UserExceptions;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -26,16 +26,15 @@ public class UserService {
 
     public User createNewUserAccount(User userDto){
 
-        //temporary until the configuration class works properly, then it should auto-generate the encoder
-       validateUser(userDto);
-       String generatedSecuredPasswordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12));
+        validateUser(userDto);
+        List<Role> roles = new ArrayList<>();
+        roles = userDto.getRoles();
 
-           return userRepository.save(new User(
-                   userDto.getUsername(),
-                   userDto.getEmailadress(),
-                   userDto.getFirstname(),
-                   userDto.getLastname(),
-                   generatedSecuredPasswordHash));
+        //temporary until the configuration class works properly, then it should auto-generate the encoder
+        String generatedSecuredPasswordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12));
+        userDto.setPassword(generatedSecuredPasswordHash);
+
+        return userRepository.save(userDto);
     }
 
     public Optional<User> findUserById(Long id) {
@@ -54,12 +53,21 @@ public class UserService {
     }
 
     public User findUserByUsername(String username){
-        return userRepository.findByUsername(username).get();
+        return userRepository.findByUserName(username).get();
     }
 
     private void validateUser(User user) {
-        if (user.getUsername().length() < 10) {
+        if (user.getUserName().length() < 10) {
             throw new UserExceptions("Username cannot be shorter than 10 characters");
         }
+
+       // List<Role> setOfRoles = checkForRepetition(user.getRoles());
     }
+
+   /* private List<Role> checkForRepetition(List<Role> roles){
+
+
+        
+        return null;
+    }*/
 }

@@ -1,5 +1,6 @@
 package com.intproject.DSOtool.resource;
 
+
 import com.intproject.DSOtool.data.Customer;
 import com.intproject.DSOtool.service.CustomerService;
 import org.springframework.stereotype.Component;
@@ -38,3 +39,4 @@ public class CustomerResource {
                 uriInfo.getAbsolutePathBuilder().path(createNewCustomer.getId().toString())).build();
     }
 }
+
