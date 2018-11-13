@@ -38,8 +38,8 @@ public class UserServiceTest {
         List<Role> roles = new ArrayList<>();
         roles.add(role1);
 
-        user1 = new User("Hejdåkkkkkk",
-                "HejDå@gmail.com",
+        user1 = new User("Hejdåkkkkkk1",
+                "HejDå1@gmail.com",
                 "Hej",
                 "password",
                 "password", roles
@@ -52,7 +52,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void findUserById() {userService.findUserById(3L).get();}
+    public void findUserById() {userService.findUserById(1L).get();}
 
     @Test
     public void findUserByUsername() {userService.findUserByUsername(user1.getUserName());}
