@@ -2,6 +2,7 @@ package com.intproject.DSOtool.data;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -13,7 +14,8 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "role")
+    @Column(name = "role", nullable = false, unique = true)
+    @NotNull
     private String role;
 
     public Role(String role) {

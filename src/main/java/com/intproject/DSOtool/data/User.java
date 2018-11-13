@@ -5,10 +5,8 @@ package com.intproject.DSOtool.data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "user")
@@ -39,8 +37,12 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "uid"), inverseJoinColumns= @JoinColumn(name = "role_id", referencedColumnName = "rid"))
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role",
+                    joinColumns = @JoinColumn(name = "user_id",
+                    referencedColumnName = "uid"),
+                    inverseJoinColumns= @JoinColumn(name = "role_id",
+                    referencedColumnName = "rid"))
     private List<Role> roles;
 
     public User( String userName,
@@ -58,10 +60,10 @@ public class User implements Serializable {
 
     }
 
-    public User() {
+    protected User() {
     }
 
-    public User(User user) {
+    protected User(User user) {
         this.emailAddress = user.getEmailAddress();
         this.userName = user.getUserName();
         this.firstName = user.getFirstName();
@@ -123,7 +125,7 @@ public class User implements Serializable {
         return roles;
     }
 
-    public void setRoles(Role role) {
-        roles.add(role);
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

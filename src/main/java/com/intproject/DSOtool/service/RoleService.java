@@ -15,9 +15,11 @@ public class RoleService {
 
     public Role createNewRole(Role role){
 
-        RoleValidation roleValidation = new RoleValidation();
-        roleValidation.validateRole(role.getRole());
+        // TODO Skapa en metod som sparar en lista av roller
 
-            return roleRepository.save(new Role(role.getRole().toLowerCase()));
+        /*RoleValidation roleValidation = new RoleValidation();
+        roleValidation.validateRole(role.getRole()); */
+        role.setRole(role.getRole().toLowerCase());
+            return roleRepository.save(role);
     }
 }

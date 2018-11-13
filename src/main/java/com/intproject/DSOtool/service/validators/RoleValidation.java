@@ -1,6 +1,5 @@
 package com.intproject.DSOtool.service.validators;
 
-import com.intproject.DSOtool.data.Role;
 import com.intproject.DSOtool.data.enums.RoleEnum;
 import com.intproject.DSOtool.service.exceptions.UserExceptions;
 

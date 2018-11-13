@@ -6,6 +6,7 @@ import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.data.enums.RoleEnum;
 import com.intproject.DSOtool.repositories.RoleRepository;
 import com.intproject.DSOtool.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import com.intproject.DSOtool.service.exceptions.UserExceptions;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.*;
 
 @Service
 public class UserService {
+
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -26,11 +28,19 @@ public class UserService {
 
     public User createNewUserAccount(User userDto){
 
-        validateUser(userDto);
-        List<Role> roles = new ArrayList<>();
-        roles = userDto.getRoles();
+        //validateUser(userDto);
 
-        //temporary until the configuration class works properly, then it should auto-generate the encoder
+        List<Role> roles;
+        roles = userDto.getRoles();
+        for (Role r : roles) {
+
+            Optional<Role> role = roleRepository.findByRole(r.getRole());
+            if(!role.isPresent()){
+                roleRepository.save(r);
+            }
+            userDto.setRoles(roles);
+        }
+
         String generatedSecuredPasswordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12));
         userDto.setPassword(generatedSecuredPasswordHash);
 
@@ -52,19 +62,19 @@ public class UserService {
         }
     }
 
-    public User findUserByUsername(String username){
+    protected User findUserByUsername(String username){
         return userRepository.findByUserName(username).get();
     }
 
-    private void validateUser(User user) {
+    /*private void validateUser(User user) {
         if (user.getUserName().length() < 10) {
             throw new UserExceptions("Username cannot be shorter than 10 characters");
         }
 
-       // List<Role> setOfRoles = checkForRepetition(user.getRoles());
+        List<Role> setOfRoles = checkForRepetition(user.getRoles());
     }
 
-   /* private List<Role> checkForRepetition(List<Role> roles){
+    private List<Role> checkForRepetition(List<Role> roles){
 
 
         
