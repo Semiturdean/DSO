@@ -1,25 +1,18 @@
 package com.intproject.DSOtool.service;
 
 import com.intproject.DSOtool.data.Role;
-import com.intproject.DSOtool.repositories.RoleRepository;
-import com.intproject.DSOtool.service.validators.RoleValidation;
-import org.springframework.stereotype.Service;
+import com.intproject.DSOtool.data.User;
 
-@Service
-public class RoleService {
-    private final RoleRepository roleRepository;
+import java.util.List;
 
-    public RoleService(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
+public interface RoleService {
 
-    public Role createNewRole(Role role){
-
-        // TODO Skapa en metod som sparar en lista av roller
-
-        /*RoleValidation roleValidation = new RoleValidation();
-        roleValidation.validateRole(role.getRole()); */
-        role.setRole(role.getRole().toLowerCase());
-            return roleRepository.save(role);
-    }
+    Role createNewRole(Role role);
+    Role findById(Long id);
+    Role findByRole(String role);
+    List<Role> findByUserId(Long id);
+    List<Role> findByUserName(String userName);
+    List<Role> findByUserFirstName(String firstName);
+    List<Role> findByUserLastName(String lastName);
+    List<Role> findByUserEmail(String email);
 }

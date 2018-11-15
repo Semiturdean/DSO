@@ -2,8 +2,11 @@ package com.intproject.DSOtool.resource;
 
 
 import com.intproject.DSOtool.data.Role;
-import com.intproject.DSOtool.data.User;
+import com.intproject.DSOtool.repositories.RoleRepository;
+import com.intproject.DSOtool.repositories.UserRepository;
 import com.intproject.DSOtool.service.RoleService;
+import com.intproject.DSOtool.service.RoleServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
@@ -25,6 +28,11 @@ public class RoleResource {
     @Context
     private UriInfo uriInfo;
 
+    /*@Autowired
+    private RoleRepository roleRepository;
+    @Autowired+
+    private UserRepository userRepository; */
+    @Autowired
     private RoleService roleService;
 
     public RoleResource(RoleService roleService) {

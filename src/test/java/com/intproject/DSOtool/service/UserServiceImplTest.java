@@ -19,14 +19,14 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserServiceTest {
+public class UserServiceImplTest {
 
     @Autowired
-    UserService userService;
+    UserServiceImpl userServiceImpl;
     @Autowired
     UserRepository userRepository;
     @Autowired
-    RoleService roleService;
+    RoleService roleServiceImpl;
     @Autowired
     RoleRepository roleRepository;
 
@@ -70,22 +70,16 @@ public class UserServiceTest {
 
     @Test
     public void createRoles() {
-        roleService.createNewRole(role1);
-        roleService.createNewRole(role2);
+        roleServiceImpl.createNewRole(role1);
+        roleServiceImpl.createNewRole(role2);
     }
 
     @Test
     public void createUser(){
-        userService.createNewUserAccount(user1);
-        userService.createNewUserAccount(user2);
-        userService.createNewUserAccount(user3);
+        userServiceImpl.createNewUserAccount(user1);
+        userServiceImpl.createNewUserAccount(user2);
+        userServiceImpl.createNewUserAccount(user3);
     }
-
-    @Test
-    public void findUserById() {userService.findUserById(1L).get();}
-
-    @Test
-    public void findUserByUsername() {userService.findUserByUsername(user1.getUserName());}
 
     @After
     public void setupAfter(){

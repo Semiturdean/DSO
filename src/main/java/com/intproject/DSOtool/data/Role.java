@@ -16,7 +16,7 @@ public class Role implements Serializable {
 
     @Column(name = "role", nullable = false, unique = true)
     @NotNull
-    @Enumerated(value = EnumType.STRING)
+    //@Enumerated(value = EnumType.STRING)
     private String role;
 
     public Role(String role) {

@@ -37,7 +37,7 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
                     joinColumns = @JoinColumn(name = "user_id",
                     referencedColumnName = "uid"),

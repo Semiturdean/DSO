@@ -2,7 +2,7 @@ package com.intproject.DSOtool.resource;
 
 
 import com.intproject.DSOtool.data.Customer;
-import com.intproject.DSOtool.service.CustomerService;
+import com.intproject.DSOtool.service.CustomerServiceImpl;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
@@ -24,10 +24,10 @@ public class CustomerResource {
     @Context
     private UriInfo uriInfo;
 
-    private final CustomerService service;
+    private final CustomerServiceImpl service;
 
 
-    public CustomerResource(CustomerService service) {
+    public CustomerResource(CustomerServiceImpl service) {
         this.service = service;
     }
 

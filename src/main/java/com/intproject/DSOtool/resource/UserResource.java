@@ -4,6 +4,7 @@ package com.intproject.DSOtool.resource;
 import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.service.CustomUserDetailService;
 import com.intproject.DSOtool.service.UserService;
+import com.intproject.DSOtool.service.UserServiceImpl;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
@@ -22,18 +23,18 @@ public class UserResource {
     @Context
     private UriInfo uriInfo;
 
-    private final UserService service;
-    private final CustomUserDetailService customUserDetailService;
+    private UserService userService;
+    private CustomUserDetailService customUserDetailService;
 
 
-    public UserResource(UserService service, CustomUserDetailService customUserDetailService) {
-        this.service = service;
+    public UserResource(UserServiceImpl userService, CustomUserDetailService customUserDetailService) {
+        this.userService = userService;
         this.customUserDetailService = customUserDetailService;
     }
 
     @POST
     public Response createUser(User user){
-        User createNewUserAccount = service.createNewUserAccount(user);
+        User createNewUserAccount = userService.createNewUserAccount(user);
 
         return Response.status(Response.Status.CREATED).header("Location",
                 uriInfo.getAbsolutePathBuilder().path(createNewUserAccount.getId().toString())).build();
@@ -42,8 +43,8 @@ public class UserResource {
     @DELETE
     @Path("{id}")
     public Response deleteUserById(@PathParam("id") Long id){
-        if(service.findUserById(id).isPresent()) {
-            service.deleteUserById(id);
+        if(userService.findUserById(id).isPresent()) {
+            userService.deleteUserById(id);
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -53,7 +54,7 @@ public class UserResource {
     @GET
     @Path("{id}")
     public Response getUserById(@PathParam("id") Long id){
-        return service.findUserById(id)
+        return userService.findUserById(id)
                 .map(Response::ok)
                 .orElse(Response.status(Response.Status.NOT_FOUND))
                 .build();

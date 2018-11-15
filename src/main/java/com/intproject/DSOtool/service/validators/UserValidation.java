@@ -3,7 +3,7 @@ package com.intproject.DSOtool.service.validators;
 import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.repositories.RoleRepository;
 import com.intproject.DSOtool.repositories.UserRepository;
-import com.intproject.DSOtool.service.exceptions.UserExceptions;
+import com.intproject.DSOtool.service.exceptions.ServiceException;
 
 public class UserValidation {
     private final UserRepository userRepository;
@@ -16,7 +16,7 @@ public class UserValidation {
 
     private void validateUser(User user) {
         if (user.getUserName().length() < 10) {
-            throw new UserExceptions("Username cannot be shorter than 10 characters");
+            throw new ServiceException("Username cannot be shorter than 10 characters");
         }
     }
 }
