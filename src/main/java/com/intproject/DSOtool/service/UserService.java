@@ -32,13 +32,15 @@ public class UserService {
 
         List<Role> roles;
         roles = userDto.getRoles();
+
         for (Role r : roles) {
 
             Optional<Role> role = roleRepository.findByRole(r.getRole());
-            if(!role.isPresent()){
-                roleRepository.save(r);
+            if(role.isPresent()){
+                r.setId(role.get().getId());
+            } else {
+                throw new UserExceptions(r.getRole() + " is not an existing role");
             }
-            userDto.setRoles(roles);
         }
 
         String generatedSecuredPasswordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12));
