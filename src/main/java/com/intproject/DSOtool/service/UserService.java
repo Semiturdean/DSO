@@ -13,7 +13,7 @@ public interface UserService {
     User findUserByUsername(String username);
     List<User> findByFirstName(String firstName);
     List<User> findByLastName(String lastName);
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
     List<User> findByRole(String role);
 
 }

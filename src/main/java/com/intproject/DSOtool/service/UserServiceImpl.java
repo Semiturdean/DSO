@@ -76,17 +76,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findByFirstName(String firstName) {
-        return null;
+        List<User> userList = userRepository.findAllByFirstName(firstName);
+        if(!userList.isEmpty()){
+            return userList;
+        } else {
+            throw new UserException(String.format("No user with firstname %s was found", firstName));
+        }
     }
 
     @Override
     public List<User> findByLastName(String lastName) {
-        return null;
+        List<User> userList = userRepository.findAllByLastName(lastName);
+        if(!userList.isEmpty()){
+            return userList;
+        } else {
+            throw new UserException(String.format("No user with lastname %s was found", lastName));
+        }
     }
 
     @Override
-    public User findByEmail(String email) {
-        return null;
+    public Optional<User> findByEmail(String email) {
+        Optional<User> user = userRepository.findByEmailAddress(email);
+        if(user.isPresent()){
+            return user;
+        } else {
+            throw new UserException(String.format("%s is not a registered email", email));
+        }
     }
 
     @Override
