@@ -1,8 +1,10 @@
 package com.intproject.DSOtool.service;
 
+import com.intproject.DSOtool.data.Role;
 import com.intproject.DSOtool.data.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface UserService {
@@ -14,6 +16,6 @@ public interface UserService {
     List<User> findByFirstName(String firstName);
     List<User> findByLastName(String lastName);
     Optional<User> findByEmail(String email);
-    List<User> findByRole(String role);
+    Map<Role , List<User>> findAllByRoles(List<Role> roles);
 
 }

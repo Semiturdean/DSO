@@ -1,5 +1,6 @@
 package com.intproject.DSOtool.repositories;
 
+import com.intproject.DSOtool.data.Role;
 import com.intproject.DSOtool.data.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByFirstName(String firstName);
     List<User> findAllByLastName(String lastName);
     Optional<User> findByEmailAddress(String emailAddress);
+    List<User> findAllByRoles(Role role);
 }

@@ -5,6 +5,7 @@ import com.intproject.DSOtool.data.User;
 import com.intproject.DSOtool.repositories.RoleRepository;
 import com.intproject.DSOtool.repositories.UserRepository;
 import com.intproject.DSOtool.service.exceptions.RoleException;
+import com.intproject.DSOtool.service.exceptions.UserException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class RoleServiceImpl implements RoleService {
         if(role.isPresent()){
             return role.get();
         } else {
-            throw new RoleException(String.format("\"%s\" could not be found", roleName));
+            throw new RoleException(String.format("%s could not be found", roleName));
         }
     }
 
@@ -56,30 +57,29 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findByUserId(Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()){
-           // return roleRepository.findByUserId(user.get().getId());
-            return null;
+           return user.get().getRoles();
         } else {
-            throw new RoleException(String.format("No user was found with id: %d", id));
+            throw new UserException(String.format("No user was found with id: %d", id));
         }
     }
 
     @Override
     public List<Role> findByUserName(String userName) {
-        return null;
-    }
-
-    @Override
-    public List<Role> findByUserFirstName(String firstName) {
-        return null;
-    }
-
-    @Override
-    public List<Role> findByUserLastName(String lastName) {
-        return null;
+        Optional<User> user = userRepository.findByUserName(userName);
+        if(user.isPresent()){
+            return user.get().getRoles();
+        }  else {
+            throw new UserException(String.format("No user was found with username: %s", userName));
+        }
     }
 
     @Override
     public List<Role> findByUserEmail(String email) {
-        return null;
+        Optional<User> user = userRepository.findByEmailAddress(email);
+        if(user.isPresent()){
+            return user.get().getRoles();
+        } else {
+            throw new UserException(String.format("No user was found with email: %s", email));
+        }
     }
 }

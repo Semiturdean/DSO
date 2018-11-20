@@ -12,7 +12,5 @@ public interface RoleService {
     Role findByRole(String role);
     List<Role> findByUserId(Long id);
     List<Role> findByUserName(String userName);
-    List<Role> findByUserFirstName(String firstName);
-    List<Role> findByUserLastName(String lastName);
     List<Role> findByUserEmail(String email);
 }

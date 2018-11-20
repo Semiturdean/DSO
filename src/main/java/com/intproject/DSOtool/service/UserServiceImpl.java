@@ -105,8 +105,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByRole(String role) {
-        return null;
+    public Map<Role ,List<User>> findAllByRoles(List<Role> roles) {
+        Map<Role, List<User>> map = new HashMap<>();
+        for (Role role : roles) {
+            List<User> userList = userRepository.findAllByRoles(role);
+            map.put(role, userList);
+        }
+        if (!map.isEmpty()){
+            return map;
+        } else {
+            throw new UserException("No users found");
+        }
     }
 
     /*private void validateUser(User user) {

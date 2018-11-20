@@ -128,4 +128,13 @@ public class User implements Serializable {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+    public String toString(){
+        return  "id: " + getId() + "\n" +
+                "username: " + getUserName() + "\n" +
+                "emailaddress: " + getEmailAddress() + "\n" +
+                "firstname: " + getFirstName() + "\n" +
+                "lastname: " + getLastName() + "\n" +
+                "roles: " + getRoles();
+    }
 }

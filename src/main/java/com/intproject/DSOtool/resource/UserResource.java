@@ -1,10 +1,9 @@
 package com.intproject.DSOtool.resource;
 
 
+import com.intproject.DSOtool.data.Role;
 import com.intproject.DSOtool.data.User;
-import com.intproject.DSOtool.service.CustomUserDetailService;
-import com.intproject.DSOtool.service.UserService;
-import com.intproject.DSOtool.service.UserServiceImpl;
+import com.intproject.DSOtool.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +14,9 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -30,11 +31,13 @@ public class UserResource {
 
     @Autowired
     private UserService userService;
+    private RoleService roleService;
     private CustomUserDetailService customUserDetailService;
 
 
-    public UserResource(UserServiceImpl userService, CustomUserDetailService customUserDetailService) {
+    public UserResource(UserServiceImpl userService, CustomUserDetailService customUserDetailService, RoleServiceImpl roleService) {
         this.userService = userService;
+        this.roleService = roleService;
         this.customUserDetailService = customUserDetailService;
     }
 
@@ -46,6 +49,7 @@ public class UserResource {
                 uriInfo.getAbsolutePathBuilder().path(createNewUserAccount.getId().toString())).build();
     }
 
+    // http://localhost:8080/users/{id}
     @GET
     @Path("{id}")
     public Response getUserById(@PathParam("id") Long id){
@@ -55,6 +59,7 @@ public class UserResource {
                 .build();
     }
 
+    // http://localhost:8080/users/email/{email}
     @GET
     @Path("/email/{email}")
     public Response getUserByEmailAddress(@PathParam("email") String email){
@@ -64,6 +69,7 @@ public class UserResource {
                 .build();
     }
 
+    // http://localhost:8080/users/firstname/{firstname}
     @GET
     @Path("/firstname/{firstname}")
     public Response getUsersByFirstName(@PathParam("firstname") String firstName){
@@ -72,6 +78,7 @@ public class UserResource {
         return Response.ok(list).build();
     }
 
+    // http://localhost:8080/users/lastname/{lastname}
     @GET
     @Path("/lastname/{lastname}")
     public Response getUsersByLastName(@PathParam("lastname") String lastName){
@@ -80,6 +87,21 @@ public class UserResource {
         return Response.ok(list).build();
     }
 
+    // http://localhost:8080/users/role?roles={role1}&roles={role2}
+    @GET
+    @Path("/roles")
+    public Response getUserByRole(@QueryParam("roles") List<String> stringRoles){
+        List<Role> roles = new ArrayList<>();
+        for (String role : stringRoles) {
+            Role roleObject = roleService.findByRole(role);
+            roles.add(roleObject);
+        }
+        Map<Role, List<User>> users = userService.findAllByRoles(roles);
+        GenericEntity<Map<Role, List<User>>> list = new GenericEntity<Map<Role ,List<User>>>(users){};
+        return Response.ok(list).build();
+    }
+
+    // http://localhost:8080/users/{id}
     @DELETE
     @Path("{id}")
     public Response deleteUserById(@PathParam("id") Long id){

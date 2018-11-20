@@ -41,4 +41,9 @@ public class Role implements Serializable {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public String toString(){
+        return "id: " + getId() +
+                "\nrole: " + getRole();
+    }
 }
