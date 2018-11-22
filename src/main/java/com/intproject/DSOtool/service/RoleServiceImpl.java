@@ -27,10 +27,14 @@ public class RoleServiceImpl implements RoleService {
 
         // TODO Skapa en metod som sparar en lista av roller
 
+        if(roleRepository.findByRole(role.getRole()).isPresent()){
+            throw new RoleException(String.format("%s is already an existing role", role.getRole()));
+        } else {
         /*RoleValidation roleValidation = new RoleValidation();
         roleValidation.validateRole(role.getRole()); */
-        role.setRole(role.getRole().toLowerCase());
+            role.setRole(role.getRole().toLowerCase());
             return roleRepository.save(role);
+        }
     }
 
     @Override
