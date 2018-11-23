@@ -1,6 +1,5 @@
 package com.intproject.DSOtool.service;
 
-
 import com.intproject.DSOtool.TestBase;
 import com.intproject.DSOtool.repositories.RoleRepository;
 import com.intproject.DSOtool.repositories.UserRepository;
@@ -12,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserServiceImplTest extends TestBase {
+public class RoleServiceImplTest extends TestBase {
 
     @Autowired
     UserServiceImpl userServiceImpl;
@@ -27,22 +24,21 @@ public class UserServiceImplTest extends TestBase {
     @Autowired
     RoleRepository roleRepository;
 
-
     @Override
     @Before
-    public void setUp() throws Exception {
+    protected void setUp() throws Exception {
         super.setUp();
     }
 
     @Override
     @Test
-    public void getUserTest() {
-        super.getUserTest();
+    public void getRoleTest() {
+        super.getRoleTest();
     }
 
     @Override
     @After
-    public void tearDown() {
+    protected void tearDown() {
         super.tearDown();
     }
 }
