@@ -7,6 +7,7 @@ import com.intproject.DSOtool.repositories.RoleRepository;
 import com.intproject.DSOtool.repositories.UserRepository;
 import com.intproject.DSOtool.service.RoleService;
 import com.intproject.DSOtool.service.UserServiceImpl;
+import com.intproject.DSOtool.service.exceptions.UserException;
 import junit.framework.TestCase;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -64,15 +65,58 @@ public class TestBase extends TestCase {
     }
 
 
-    public void getRoleTest(){
-        roleRepository.findByRole(role1.getRole());
-        roleRepository.findByRole(role2.getRole());
+    public void getUserByUserNameTest(){
+        userServiceImpl.findUserByUsername(user1.getUserName());
+        userServiceImpl.findUserByUsername(user2.getUserName());
+        userServiceImpl.findUserByUsername(user3.getUserName());
     }
 
-    public void getUserTest(){
-        userRepository.findByUserName(user1.getUserName());
-        userRepository.findByUserName(user2.getUserName());
-        userRepository.findByUserName(user3.getUserName());
+    public void getUserByIdTest(){
+        Optional<User> user = userRepository.findByUserName(user1.getUserName());
+            userServiceImpl.findUserById(user.get().getId());
+    }
+
+    public void getUsersByFirstNameTest(){
+        userServiceImpl.findByFirstName(user1.getFirstName());
+    }
+
+    public void getUsersByLastNameTest(){
+        userServiceImpl.findByLastName(user1.getLastName());
+    }
+
+    public void getUserByEmailTest(){
+        userServiceImpl.findByEmail(user1.getEmailAddress());
+    }
+
+    public void getUserByRolesTest(){
+        userServiceImpl.findAllByRoles(roles);
+    }
+
+    public void getRoleByIdTest(){
+        Optional<Role> role = roleRepository.findByRole(role1.getRole());
+        if(role.isPresent()){
+            roleServiceImpl.findById(role.get().getId());
+        }
+    }
+
+    public void getRoleByRoleTest(){
+        roleServiceImpl.findByRole(role1.getRole());
+        roleServiceImpl.findByRole(role2.getRole());
+    }
+
+    public void getRolesByUserIdTest(){
+        Optional<User> user = userRepository.findByUserName(user1.getUserName());
+        if(user.isPresent()){
+            roleServiceImpl.findByUserId(user.get().getId());
+        }
+    }
+
+    public void getRolesByUserNameTest(){
+        roleServiceImpl.findByUserName(user1.getUserName());
+    }
+
+    public void getRolesByUserEmailTest(){
+        roleServiceImpl.findByUserEmail(user1.getEmailAddress());
     }
 
     protected void tearDown(){

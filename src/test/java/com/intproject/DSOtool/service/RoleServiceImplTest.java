@@ -26,19 +26,43 @@ public class RoleServiceImplTest extends TestBase {
 
     @Override
     @Before
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
     }
 
     @Override
     @Test
-    public void getRoleTest() {
-        super.getRoleTest();
+    public void getRoleByRoleTest() {
+        super.getRoleByRoleTest();
+    }
+
+    @Override
+    @Test
+    public void getRoleByIdTest() {
+        super.getRoleByIdTest();
+    }
+
+    @Override
+    @Test
+    public void getRolesByUserIdTest() {
+        super.getRolesByUserIdTest();
+    }
+
+    @Override
+    @Test
+    public void getRolesByUserEmailTest() {
+        super.getRolesByUserEmailTest();
+    }
+
+    @Override
+    @Test
+    public void getRolesByUserNameTest() {
+        super.getRolesByUserNameTest();
     }
 
     @Override
     @After
-    protected void tearDown() {
+    public void tearDown() {
         super.tearDown();
     }
 }

@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         if(user.isPresent()){
             return user;
         } else {
-            throw new ServiceException("ID is non-existent");
+            throw new ServiceException("Couldn't find the ID in the database");
         }
     }
 
@@ -61,6 +61,8 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         if(userRepository.existsById(id)){
             userRepository.deleteById(id);
+        } else {
+            throw new UserException("A user with that ID could not be found or has already previously been deleted");
         }
     }
 

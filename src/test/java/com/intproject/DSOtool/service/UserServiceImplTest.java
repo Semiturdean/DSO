@@ -36,8 +36,38 @@ public class UserServiceImplTest extends TestBase {
 
     @Override
     @Test
-    public void getUserTest() {
-        super.getUserTest();
+    public void getUserByUserNameTest() {
+        super.getUserByUserNameTest();
+    }
+
+    @Override
+    @Test
+    public void getUserByIdTest() {
+        super.getUserByIdTest();
+    }
+
+    @Override
+    @Test
+    public void getUsersByFirstNameTest() {
+        super.getUsersByFirstNameTest();
+    }
+
+    @Override
+    @Test
+    public void getUsersByLastNameTest() {
+        super.getUsersByLastNameTest();
+    }
+
+    @Override
+    @Test
+    public void getUserByEmailTest() {
+        super.getUserByEmailTest();
+    }
+
+    @Override
+    @Test
+    public void getUserByRolesTest() {
+        super.getUserByRolesTest();
     }
 
     @Override
